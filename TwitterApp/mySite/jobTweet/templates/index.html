@@ -1,0 +1,22 @@
+{% load propeller %}
+
+<form action="{% url 'jobTweet:name' %}" method="post" class="form">
+    {% csrf_token %}
+    <input type="text" name="search_phrase" id="search_phrase">
+    {% buttons %}
+     	<button type="submit" class="btn btn-primary">
+     		Submit
+     	</button>
+    {% endbuttons %}
+</form>
+
+{% block content %}
+    <h2>Tweets</h2>
+    <ul>
+        {% for tweets in search_phrase %}
+            <li><strong>{{ tweets.user.name}}</strong> at {{ tweets.created_at}}
+            <br>
+            {{ tweets.text }} </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
